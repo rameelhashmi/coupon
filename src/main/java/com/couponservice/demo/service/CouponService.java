@@ -47,7 +47,7 @@ public class CouponService {
                             couponRepository.save(coupon);
                             return "One Time Coupon has been redeemed with Coupon Code: "+coupon.getCouponCode();
                         } else {
-                            return "Coupon "+coupon.getCouponCode()+" has already redeemed once: " ;
+                            return "Coupon "+coupon.getCouponCode()+" has already redeemed once" ;
                         }
                     }
                 }
