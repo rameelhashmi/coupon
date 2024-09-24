@@ -37,7 +37,7 @@ public class CouponService {
                         coupon.setRedeemed(true);
                         coupon.setRedeemCount(coupon.getRedeemCount() + 1);
                         couponRepository.save(coupon); // Update the coupon in the database
-                       return "Coupon has been redeemed with Coupon Code: "+coupon.getCouponCode();
+                       return "Multi Time Coupon has been redeemed with Coupon Code: "+coupon.getCouponCode();
 
                     } else if ("ONE_TIME".equals(coupon.getCouponType())) {
                         if (coupon.getRedeemCount().equals(0) && !coupon.isRedeemed())
