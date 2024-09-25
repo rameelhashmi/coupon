@@ -30,7 +30,7 @@ public class CouponController {
         return new ResponseEntity<>(createdCoupon, HttpStatus.CREATED);
     }
 
-    // Create a new coupon
+    // Redeem a new coupon (One-time & multi-time both)
     @GetMapping("/redeem/{couponCode}")
     public ResponseEntity<String> redeemCoupon(@PathVariable Integer couponCode) {
         String message = couponService.redeemCoupon(couponCode);

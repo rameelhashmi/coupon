@@ -24,38 +24,45 @@ public class CouponService {
         return couponRepository.findAll();
     }
 
-    public String redeemCoupon(Integer couponCode){
+    public String redeemCoupon(Integer couponCode) {
 
-        if (couponRepository.existsByCouponCode(couponCode)){
+        if (couponRepository.existsByCouponCode(couponCode)) {
 
-            Optional<Coupon> couponOptional = couponRepository.findByCouponCode(couponCode);
-                Coupon coupon = couponOptional.get();
+            Optional<Coupon> couponDetails = couponRepository.findByCouponCode(couponCode);
+            Coupon coupon = couponDetails.get();
 
-                if (coupon.getExpirationDate().isAfter(LocalDateTime.now())) {
-                    // Check if the coupon type is MULTI_TIME
-                    if ("MULTI_TIME".equals(coupon.getCouponType())) {
-                        coupon.setRedeemed(true);
-                        coupon.setRedeemCount(coupon.getRedeemCount() + 1);
-                        couponRepository.save(coupon); // Update the coupon in the database
-                       return "Multi Time Coupon has been redeemed with Coupon Code: "+coupon.getCouponCode();
-
-                    } else if ("ONE_TIME".equals(coupon.getCouponType())) {
-                        if (coupon.getRedeemCount().equals(0) && !coupon.isRedeemed())
-                        {
-                            coupon.setRedeemCount(1);
-                            coupon.setRedeemed(true);
-                            couponRepository.save(coupon);
-                            return "One Time Coupon has been redeemed with Coupon Code: "+coupon.getCouponCode();
-                        } else {
-                            return "Coupon "+coupon.getCouponCode()+" has already redeemed once" ;
-                        }
-                    }
+            if (coupon.getExpirationDate().isAfter(LocalDateTime.now())) {
+                switch (coupon.getCouponType()) {
+                    case "MULTI_TIME":
+                        return redeemMultiTimeCoupon(coupon);
+                    case "ONE_TIME":
+                        return redeemOneTimeCoupon(coupon);
+                    default:
+                        return "Invalid coupon type";
                 }
-
-                else {
-                    return "Coupon "+coupon.getCouponCode()+ "has already expired on: " +coupon.getExpirationDate();
-                }
+            } else {
+                return "Coupon: " + coupon.getCouponCode() + " has already expired on: " + coupon.getExpirationDate();
+            }
         }
-        return " Wrong Coupon Code: "+ couponCode+ " Please try with correct code";
+        return " Wrong Coupon Code: " + couponCode + " Please try with correct code";
+    }
+
+    private String redeemMultiTimeCoupon(Coupon coupon){
+        coupon.setRedeemed(true);
+        coupon.setRedeemCount(coupon.getRedeemCount() + 1);
+        couponRepository.save(coupon); // Update the coupon in the database
+        return "Multi Time Coupon: "+coupon.getCouponCode()+" has been redeemed";
+    }
+
+    private String redeemOneTimeCoupon(Coupon coupon){
+        if (coupon.getRedeemCount().equals(0) && !coupon.isRedeemed())
+        {
+            coupon.setRedeemCount(1);
+            coupon.setRedeemed(true);
+            couponRepository.save(coupon);
+            return "One Time Coupon: "+coupon.getCouponCode()+" has been redeemed";
+        } else {
+            return "Coupon: "+coupon.getCouponCode()+" has already redeemed once" ;
+        }
     }
 }
