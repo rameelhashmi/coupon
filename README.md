@@ -12,3 +12,19 @@ Technology Used:
 5. Flyway
 6. Mockito
 7. Design pattern: MVC
+8. Docker
+
+How to add Environmental variables in MAC:
+
+1. Go to Terminal
+2. Type: nano .zprofile
+3. add your variable for example: export JDBC_USER=rameel
+4. Press ctrl+x
+5. Press Y
+6. Press enter
+7. Restart terminal
+8. type env and see your latest variable here
+9. Restart Intellij 
+10. In Intellij go to run configurations, then environmental variable and check your new variable
+
+
