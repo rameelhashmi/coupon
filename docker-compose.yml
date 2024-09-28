@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    environment:
+      JDBC_URL: jdbc:mariadb://db:3306/${JDBC_DATABASE}
+      JDBC_USER: ${JDBC_USER}
+      JDBC_PASSWORD: ${JDBC_PASSWORD}
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ${JDBC_PASSWORD}
+      MYSQL_DATABASE: ${JDBC_DATABASE}
+      MYSQL_USER: ${JDBC_USER}
+      MYSQL_PASSWORD: ${JDBC_PASSWORD}
+    ports:
+      - "3306:3306"
