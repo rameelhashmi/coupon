@@ -8,7 +8,7 @@ Technology Used:
 1. Java version 17
 2. Spring Boot
 3. JPA
-4. PostgreSQL
+4. MariaDB
 5. Flyway
 6. Mockito
 7. Design pattern: MVC
