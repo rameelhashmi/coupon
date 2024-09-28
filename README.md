@@ -27,8 +27,16 @@ How to add Environmental variables in MAC:
 9. Restart Intellij 
 10. In Intellij go to run configurations, then environmental variable and check your new variable
 
+Run in localhost:
+
+1. Install mariadb
+2. run mariadb server
+3. run app from Intellij configurations
+
+
 Run Docker locally:
 
-1. JDBC url is different for localhost and docker
-2. In terminal: docker-compose up --build
+1. Pre-req: Dockerfile & docker-compose.yml
+2. JDBC url is different for localhost and for docker-compose
+3. In terminal: docker-compose up --build
 
