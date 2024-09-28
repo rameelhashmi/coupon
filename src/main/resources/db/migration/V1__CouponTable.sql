@@ -7,5 +7,5 @@ CREATE TABLE IF NOT EXISTS coupons (
     coupon_type     varchar(50) NOT NULL,
     is_redeemed     boolean DEFAULT false,
     redeem_count    integer DEFAULT 0,
-    coupon_code     varchar(50) -- Change to varchar if coupon codes may include letters
+    coupon_code     varchar(50)
 );
