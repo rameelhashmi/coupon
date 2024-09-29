@@ -1,5 +1,5 @@
-package com.couponservice.demo.repository;
-import com.couponservice.demo.entity.Coupon;
+package com.coupon.demo.repository;
+import com.coupon.demo.entity.Coupon;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

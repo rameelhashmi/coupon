@@ -1,7 +1,7 @@
-package com.couponservice.demo.service;
+package com.coupon.demo.service;
 
-import com.couponservice.demo.entity.Coupon;
-import com.couponservice.demo.repository.CouponRepository;
+import com.coupon.demo.entity.Coupon;
+import com.coupon.demo.repository.CouponRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

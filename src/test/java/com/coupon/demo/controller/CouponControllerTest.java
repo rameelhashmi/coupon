@@ -1,7 +1,7 @@
-package com.couponservice.demo.controller;
+package com.coupon.demo.controller;
 
-import com.couponservice.demo.entity.Coupon;
-import com.couponservice.demo.service.CouponService;
+import com.coupon.demo.entity.Coupon;
+import com.coupon.demo.service.CouponService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;

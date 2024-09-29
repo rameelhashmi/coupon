@@ -8,10 +8,10 @@
 		<version>3.3.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.couponservice</groupId>
-	<artifactId>couponmanagement</artifactId>
+	<groupId>com.coupon</groupId>
+	<artifactId>coupon</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>coupon management</name>
+	<name>coupon</name>
 	<description>coupon Service Project</description>
 	<url/>
 	<licenses>

@@ -1,7 +1,7 @@
-package com.couponservice.demo.controller;
+package com.coupon.demo.controller;
 
-import com.couponservice.demo.entity.Coupon;
-import com.couponservice.demo.service.CouponService;
+import com.coupon.demo.entity.Coupon;
+import com.coupon.demo.service.CouponService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
