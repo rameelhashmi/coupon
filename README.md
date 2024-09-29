@@ -12,7 +12,8 @@ Technology Used:
 5. Flyway
 6. Mockito
 7. Design pattern: MVC
-8. Docker
+8. Dockerized app with Docker compose
+9. Images stored in AWS ECR
 
 How to add Environmental variables in MAC:
 
