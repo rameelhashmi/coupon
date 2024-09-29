@@ -1,6 +1,6 @@
-package com.coupon.demo.repository;
+package com.coupon.repository;
 
-import com.coupon.demo.entity.Coupon;
+import com.coupon.entity.Coupon;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

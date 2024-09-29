@@ -1,4 +1,4 @@
-CouponManagement Application:
+Coupon Application:
 
 USE Cases:
 1. New coupons can be created.

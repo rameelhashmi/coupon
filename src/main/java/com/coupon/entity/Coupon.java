@@ -1,4 +1,4 @@
-package com.coupon.demo.entity;
+package com.coupon.entity;
 
 import jakarta.persistence.*;
 

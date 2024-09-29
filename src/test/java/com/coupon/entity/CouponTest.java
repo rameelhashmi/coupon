@@ -1,4 +1,4 @@
-package com.coupon.demo.entity;
+package com.coupon.entity;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

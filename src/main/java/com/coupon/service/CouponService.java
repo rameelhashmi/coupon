@@ -1,6 +1,6 @@
-package com.coupon.demo.service;
+package com.coupon.service;
 
-import com.coupon.demo.entity.Coupon;
+import com.coupon.entity.Coupon;
 
 import java.util.List;
 
