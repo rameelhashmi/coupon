@@ -50,6 +50,38 @@ public class CouponServiceImpl implements CouponService {
         return "Wrong Coupon Code: " + couponCode + " Please try with correct code";
     }
 
+    @Override
+    public String deleteExpiredAndOneTimeRedeemCoupon() {
+        // Use the custom query method
+        List<Coupon> couponsToDelete = couponRepository.findExpiredAndRedeemedCoupons(LocalDateTime.now(), "ONE_TIME");
+
+        if (!couponsToDelete.isEmpty()) {
+            couponRepository.deleteAll(couponsToDelete);
+            return "Deleted " + couponsToDelete.size() + " Expired One_Time coupons";
+        }
+
+        return "No coupons to delete";
+    }
+
+    @Override
+    public String deleteExpiredAndMultiTimeRedeemCoupon() {
+        // Use the custom query method
+        List<Coupon> couponsToDelete = couponRepository.findExpiredAndRedeemedCoupons(LocalDateTime.now(), "MULTI_TIME");
+
+        if (!couponsToDelete.isEmpty()) {
+            couponRepository.deleteAll(couponsToDelete);
+            return "Deleted " + couponsToDelete.size() + " Expired Multi_Time coupons";
+        }
+
+        return "No coupons to delete";    }
+
+    @Override
+    public String deleteAllCoupon() {
+        List<Coupon> couponsToDelete = couponRepository.findAll();
+        couponRepository.deleteAll(couponsToDelete);
+        return  couponsToDelete.size() + " Coupons Deleted";
+    }
+
     private String redeemMultiTimeCoupon(Coupon coupon) {
         coupon.setRedeemed(true);
         coupon.setRedeemCount(coupon.getRedeemCount() + 1);

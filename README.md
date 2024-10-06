@@ -41,7 +41,7 @@ Run Docker locally:
 
 1. Pre-req: Dockerfile & docker-compose.yml
 2. Note: JDBC url is different for application.properties and for docker-compose.yml
-3. Run mvn vlean install first to create a latest JAR file
+3. Run mvn clean install first to create a latest JAR file
 4. Stop the mysql server if already running, In terminal: lsof -i :3306 fetch the PID and then kill <PID>
 5. In terminal: docker-compose up --build
   

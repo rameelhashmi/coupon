@@ -34,6 +34,24 @@ public class CouponController {
     @GetMapping("/redeem/{couponCode}")
     public ResponseEntity<String> redeemCoupon(@PathVariable Integer couponCode) {
         String message = couponService.redeemCoupon(couponCode);
-        return new ResponseEntity<>(message, HttpStatus.CREATED);
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("delete/allcoupon")
+    public ResponseEntity <String> deleteAllCoupon(){
+        String result = couponService.deleteAllCoupon();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("delete/expired/onetimecoupon")
+    public ResponseEntity <String> deleteOneTimeCoupon(){
+        String result = couponService.deleteExpiredAndOneTimeRedeemCoupon();
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("delete/expired/multitimecoupon")
+    public ResponseEntity<String> deleteMultiTimeCoupon(){
+        String result = couponService.deleteExpiredAndMultiTimeRedeemCoupon();
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
