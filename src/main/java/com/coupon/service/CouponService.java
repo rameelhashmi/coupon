@@ -8,4 +8,7 @@ public interface CouponService {
     Coupon saveCoupon(Coupon coupon);
     List<Coupon> getAllCoupons();
     String redeemCoupon(Integer couponCode);
+    String deleteExpiredAndOneTimeRedeemCoupon();
+    String deleteExpiredAndMultiTimeRedeemCoupon();
+    String deleteAllCoupon();
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,22 +18,34 @@ class CouponRepositoryTest {
     @Autowired
     private CouponRepository couponRepository;
 
-    private Coupon testCoupon;
+    private Coupon validCoupon;
+    private Coupon expiredCoupon;
 
     @BeforeEach
     void setUp() {
-        testCoupon = new Coupon();
-        testCoupon.setTitle("Test Coupon");
-        testCoupon.setDescription("Test Description");
-        testCoupon.setCouponCode(12345);
-        testCoupon.setCouponType("ONE_TIME");
-        testCoupon.setStartDate(LocalDateTime.now());
-        testCoupon.setExpirationDate(LocalDateTime.now().plusDays(5));
-        testCoupon.setRedeemed(false);
-        testCoupon.setRedeemCount(0);
+        // Valid coupon that is not expired
+        validCoupon = new Coupon();
+        validCoupon.setTitle("Valid Coupon");
+        validCoupon.setDescription("This coupon is valid");
+        validCoupon.setCouponCode(12345);
+        validCoupon.setCouponType("ONE_TIME");
+        validCoupon.setStartDate(LocalDateTime.now());
+        validCoupon.setExpirationDate(LocalDateTime.now().plusDays(5));
+        validCoupon.setRedeemed(true);
+        validCoupon.setRedeemCount(1);
+        couponRepository.save(validCoupon);
 
-        // Save the test coupon in the repository
-        couponRepository.save(testCoupon);
+        // Expired coupon that is redeemed
+        expiredCoupon = new Coupon();
+        expiredCoupon.setTitle("Expired Coupon");
+        expiredCoupon.setDescription("This coupon has expired");
+        expiredCoupon.setCouponCode(67890);
+        expiredCoupon.setCouponType("ONE_TIME");
+        expiredCoupon.setStartDate(LocalDateTime.now().minusDays(10)); // Start date is in the past
+        expiredCoupon.setExpirationDate(LocalDateTime.now().minusDays(5)); // Expired
+        expiredCoupon.setRedeemed(true);
+        expiredCoupon.setRedeemCount(1);
+        couponRepository.save(expiredCoupon);
     }
 
     @Test
@@ -48,14 +61,14 @@ class CouponRepositoryTest {
 
         Coupon foundCoupon = optionalCoupon.get();
         assertEquals(12345, foundCoupon.getCouponCode());
-        assertEquals("Test Coupon", foundCoupon.getTitle());
-        assertEquals("Test Description", foundCoupon.getDescription());
+        assertEquals("Valid Coupon", foundCoupon.getTitle());
+        assertEquals("This coupon is valid", foundCoupon.getDescription());
     }
 
     @Test
     void testFindByCouponCode_NotFound() {
-        Optional<Coupon> optionalCoupon = couponRepository.findByCouponCode(67890);
-        assertFalse(optionalCoupon.isPresent(), "Coupon with code 67890 should not exist");
+        Optional<Coupon> optionalCoupon = couponRepository.findByCouponCode(123212);
+        assertFalse(optionalCoupon.isPresent(), "Coupon with code 123212 should not exist");
     }
 
     @Test
@@ -78,8 +91,19 @@ class CouponRepositoryTest {
 
     @Test
     void testDeleteCoupon() {
-        couponRepository.delete(testCoupon);
+        couponRepository.delete(validCoupon);
         Optional<Coupon> optionalCoupon = couponRepository.findByCouponCode(12345);
         assertFalse(optionalCoupon.isPresent(), "Coupon should be deleted");
+    }
+
+    @Test
+    void testFindExpiredAndRedeemedCoupons() {
+        // Act
+        List<Coupon> expiredAndRedeemedCoupons = couponRepository.findExpiredAndRedeemedCoupons(LocalDateTime.now(), "ONE_TIME");
+
+        // Assert
+        assertNotNull(expiredAndRedeemedCoupons, "The list should not be null");
+        assertEquals(1, expiredAndRedeemedCoupons.size(), "There should be one expired and redeemed coupon");
+        assertEquals(expiredCoupon.getCouponCode(), expiredAndRedeemedCoupons.get(0).getCouponCode(), "The coupon should match the expired coupon");
     }
 }

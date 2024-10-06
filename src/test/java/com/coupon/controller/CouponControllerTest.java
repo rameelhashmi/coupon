@@ -96,7 +96,50 @@ public class CouponControllerTest {
 
         // Then
         mockMvc.perform(get("/coupons/redeem/789"))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
+                .andExpect(content().string(successMessage));
+    }
+
+
+    @Test
+    public void testDeleteAllCoupon() throws Exception {
+        // Given
+        String successMessage = "All coupons have been deleted.";
+
+        // When
+        when(couponService.deleteAllCoupon()).thenReturn(successMessage);
+
+        // Then
+        mockMvc.perform(get("/coupons/delete/allcoupon"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(successMessage));
+    }
+
+    @Test
+    public void testDeleteExpiredOneTimeCoupon() throws Exception {
+        // Given
+        String successMessage = "Expired one-time coupons have been deleted.";
+
+        // When
+        when(couponService.deleteExpiredAndOneTimeRedeemCoupon()).thenReturn(successMessage);
+
+        // Then
+        mockMvc.perform(get("/coupons/delete/expired/onetimecoupon"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(successMessage));
+    }
+
+    @Test
+    public void testDeleteExpiredMultiTimeCoupon() throws Exception {
+        // Given
+        String successMessage = "Expired multi-time coupons have been deleted.";
+
+        // When
+        when(couponService.deleteExpiredAndMultiTimeRedeemCoupon()).thenReturn(successMessage);
+
+        // Then
+        mockMvc.perform(get("/coupons/delete/expired/multitimecoupon"))
+                .andExpect(status().isOk())
                 .andExpect(content().string(successMessage));
     }
 }
